@@ -1,0 +1,93 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
+
+public class Solution {
+	 public int calculate(String s){
+			String c1 = null;
+			String c2 = null;
+			List<String> list= getFrex(s);
+			Stack<String> stack = new Stack<>();
+			Set<String> set = new HashSet<>();
+			set.add("+");
+			set.add("-");
+			set.add("*");
+			set.add("/");
+			Iterator<String> iterator = list.iterator();
+			while (iterator.hasNext()) {
+				String next = iterator.next();
+				if (set.contains(next)) {
+					c1 = stack.pop().replaceAll(" +","");
+					c2 = stack.pop().replaceAll(" +","");
+					if(next.equals("*")) {
+						stack.push(String.valueOf(Integer.parseInt(c1)*Integer.parseInt(c2)));
+					}
+					if(next.equals("/")) {
+						int num1 = Integer.parseInt(c2);
+						int num2 = Integer.parseInt(c1);
+						int value = num1/num2;
+						stack.push(String.valueOf(value));
+					}
+					if(next.equals("+")) {
+						stack.push(String.valueOf(Integer.parseInt(c1)+Integer.parseInt(c2)));
+					}
+					if(next.equals("-")) {
+						stack.push(String.valueOf(Integer.parseInt(c2)-Integer.parseInt(c1)));
+					}
+				}
+				else
+					stack.push(next.replaceAll(" +",""));			
+			}
+			
+			
+			return Integer.parseInt(stack.peek());
+		}
+	    public List getFrex(String s) {
+			HashMap<String,Integer> opMaper = new HashMap<>();
+			opMaper.put("+",1);
+			opMaper.put("-",1);
+			opMaper.put("*",2);
+			opMaper.put("/",2);
+			Set<String> opSet = opMaper.keySet();
+			int index1 = 0;
+			int index2 = 0;
+			Stack<String> stack = new Stack<>();
+			List<String> result = new ArrayList<>();
+			while(index2<s.length()) {
+				 char c = s.charAt(index2);
+				 String c1 = String.valueOf(c);	 
+				 if(opSet.contains(c1)) {
+					String num = s.substring(index1, index2).replaceAll(" +","") ;
+					result.add(num);
+					if(!stack.empty()) {
+						System.out.println("1");
+						while(opMaper.get(stack.peek())>opMaper.get(c1)||opMaper.get(stack.peek())==opMaper.get(c1)) {
+							String c2 = stack.peek();
+							result.add(c2);	
+							stack.pop();
+							if(stack.size()==0) break;
+						}
+						stack.push(c1);
+						if(opMaper.get(stack.peek())<opMaper.get(c1)) {
+							stack.push(c1);
+						}					
+					}	
+					if(stack.empty()) {
+						stack.push(c1);	
+					}	
+					index1 = index2+1;
+				}
+				index2++;
+				}
+			result.add(s.substring(index1, index2));
+			while(!stack.empty()) {
+				result.add(stack.pop());
+			}
+			return result;
+	        }
+
+}
