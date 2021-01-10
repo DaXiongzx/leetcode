@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.naming.directory.ModificationItem;
+
+public class Solution {
+	public static String modifyString(String s) {
+		if (s.equals("?"))
+			return "a";
+		List<Character> chList = new ArrayList<Character>();
+		for(int k=0;k<s.length();k++) {
+			chList.add(s.charAt(k));
+		}
+		int length = s.length();
+		char repChar = 0;
+		List<Character> list = new ArrayList<>();
+		for (int i=97;i<123;i++) {
+			list.add((char) i);
+		}
+		Iterator<Character> iterator = chList.iterator();
+//		while(iterator.hasNext()) {
+//			System.out.println(iterator.next());
+//		}
+		int j;
+		for(int i=0;i<length;i++) {
+			if(chList.get(i)=='?') {
+				//System.out.println("enter successfully");
+				if (i==0) {
+					//System.out.println("enter successfully1");
+					char c1 = chList.get(i+1);
+					for(int k=0;k<list.size();k++) {
+						if(c1!=list.get(k))
+							repChar = list.get(k);
+					}
+				}
+				else if(i==length-1) {
+					char c2 = chList.get(i-1);
+					for(int k=0;k<list.size();k++) {
+						if(c2!=list.get(k))
+							repChar = list.get(k);
+					}
+				}
+				
+				else {
+					char c1 = chList.get(i-1);
+					char c2 = chList.get(i+1);
+					for (int k=0;k<list.size();k++) {
+						if(c1!=list.get(k)&&c2!=list.get(k))
+							repChar = list.get(k);
+					}
+				}
+				chList.set(i, repChar);
+			}
+		}
+		StringBuilder st = new StringBuilder();
+		while(iterator.hasNext()) {
+			st.append(iterator.next());
+		}
+		return st.toString();
+    }
+	public static String modifyString2(String s) { //解法2
+		char [] chars = s.toCharArray();
+		for(int i =0;i<chars.length;i++) {
+			if(chars[i]=='?') {
+				char ahead=i==0?' ':chars[i-1];
+				char behind=i==chars.length-1?' ':chars[i+1];
+				char temp = 'a';
+				while (temp==ahead||temp==behind) {
+					temp++;
+				}
+				chars[i] = temp;
+			}
+		}
+		return new String(chars);
+	}
+	
+	public static void main(String[] args) {
+		int i =1;
+		char ahead=i==0?' ':'c';
+		System.out.println(ahead);
+	}
+
+}
