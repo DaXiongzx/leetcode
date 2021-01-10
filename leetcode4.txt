@@ -1,0 +1,42 @@
+public class Solution2 {
+	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+		DecimalFormat df=new DecimalFormat("0.00");
+        int index1 = 0;
+        int index2 = 0;
+        int index = 0;
+        int len1 = nums1.length,len2 = nums2.length;
+        int len = len1+len2;
+        int []num = new int[len];
+        while (index1<len1&&index2<len2) {
+        	if(nums1[index1]<nums2[index2]) {
+        		num[index++] = nums1[index1++]; 
+        	}
+        	else {
+        		num[index++] = nums2[index2++];
+        	}
+        	
+        }
+        while(index1<len1) {
+        	num[index] = nums1[index1];
+        	index1++;
+        	index++;
+        }
+        while(index2<len2) {
+        	num[index] = nums2[index2];
+        	index2++;
+        	index++;
+        }
+        for(int k=0;k<len;k++) {
+        	System.out.println(num[k]);
+        }
+        index--;
+        //System.out.println("index: "+index);
+        if(index%2==0) return num[index/2];
+        else return (((float)num[index/2]+(float)num[index/2+1])/2);
+     }
+	public static void main(String[] args) {
+		int [] nums1 = {1,2};
+		int [] nums2 = {3,4};
+		double res = findMedianSortedArrays(nums1,nums2);
+		System.out.println(res);
+	}
