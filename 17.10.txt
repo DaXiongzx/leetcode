@@ -1,0 +1,38 @@
+package ZX.leetcode.dai11;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Solution {
+	public int majorityElement(int[] nums) {
+		HashMap<Integer,Integer> map = new HashMap<>();
+		Set<Integer> set = new HashSet<>();
+		for(int i=0;i<nums.length;i++) {
+			if(set.contains(nums[i]))
+				continue;
+			else
+				set.add(nums[i]);
+		}
+		for(Integer i:set)
+			map.put(i, 0);
+		for(int i=0;i<nums.length;i++) {
+			int value = map.get(nums[i]);
+			map.put(nums[i], value+1);
+		}
+		int halfSize = nums.length/2;
+		for(Integer value:map.values()) {
+			if(value>halfSize) {
+				for(Integer key:map.keySet()) {
+					if(map.get(key).equals(value)) {
+						return key;
+					}
+				}
+			}
+		}
+		
+		return -1;
+
+    }
+
+}
