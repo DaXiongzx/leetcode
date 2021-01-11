@@ -1,0 +1,56 @@
+package ZX.leetcode.dai11;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class Solution2 {
+	public static int getWinner(int[] arr, int k) {
+		HashMap<Integer,Integer> map = new HashMap<>();
+		HashSet<Integer> set = new HashSet<>();
+		for(Integer key : arr) { //初始化set
+			if(set.contains(key))
+				continue;
+			else
+				set.add(key);
+		}
+		for(Integer key : set) //初始化map
+			map.put(key, 0);
+		int head = 0,temp1=0,temp2=0;
+		int rear =arr.length-1;
+		int i=1;
+		while(true) {
+			if(arr[head]<arr[i]) {
+				map.put(arr[i], map.get(arr[i])+1);
+				temp1 = arr[head];
+				arr[head] = arr[i];
+				temp2 = arr[rear];
+				arr[rear] = temp1;
+				arr[i] = temp2;	
+			}
+			else {
+				map.put(arr[head], map.get(arr[head])+1);
+			}
+			if(map.get(arr[head])==k)
+				return arr[head];
+			i++;
+			if(i==arr.length-1) {
+				int max = arr[0];
+				for(Integer key :arr) {
+					if(key>max)
+						max = key;
+				}
+
+				//System.out.println(max);
+				return max;
+			}
+			
+		}
+    }
+	public static void main(String[] args) {
+		int []arr = {1,11,22,33,44,55,66,77,88,99};
+		int k = 100000000;
+		//System.out.println(arr[arr.length-1]);
+		getWinner(arr,k);
+	}
+
+}
