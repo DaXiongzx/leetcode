@@ -1,0 +1,36 @@
+package ZX.leetcode.day13;
+
+public class Solution {
+	public void swap(int[] nums,int i ,int end) {
+		int temp = nums[end];
+		nums[end] = nums[i];
+		nums[i] = temp;
+	}
+	public int findMax(int[] nums,int end) {
+		for(int i=0;i<end;i++) {
+			if(nums[i]>nums[end]) {
+				swap(nums,i,end);
+			}
+		}
+		return nums[end];
+	}
+	public int findMin(int []nums,int start) {
+		for(int i=1;i<nums.length-1;i++) {
+			if(nums[i]<nums[start])
+				swap(nums,i,start);
+		}
+		return nums[start];
+	}
+	public int maximumProduct(int[] nums) {
+		int end = nums.length-1;
+		int max = findMax(nums,end);
+		int max1 = findMax(nums,end-1);
+		int max2 = findMax(nums,end-2);
+		int min1 = findMin(nums,0);
+		int min2 = findMin(nums,1);
+		int Max1 = max*max1*max2;
+		int Max2  =max*min1*min2;
+		return Max1>Max2?Max1:Max2;
+    }
+
+}
