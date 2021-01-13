@@ -1,0 +1,22 @@
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+		List<Integer> list= new ArrayList<>();
+		for(int i=0;i<nums.length;i++) {
+			list.add(nums[i]*nums[i]);
+		}
+		int i,j;
+		int []arr = list.stream().mapToInt(k->k).toArray();
+		for (i=1;i<nums.length;i++) {
+			int temp = arr[i];
+			for(j=i-1;j>=0&&arr[j]>temp;j--) {
+				arr[j+1]=arr[j];
+			}
+			arr[j+1] = temp;
+		}
+		
+		return arr;
+		
+
+    }
+
+}
