@@ -1,0 +1,24 @@
+package ZX.leetcode.no1588;
+
+public class Solution {
+	public static int sumOddLengthSubarrays(int[] arr) {
+		int sum = 0;
+		for(int window = 1;window<=arr.length;window+=2) {
+			for(int start=0;start+window<=arr.length;start++) {
+				for(int i=start;i<start+window&&i<arr.length;i++) {
+					sum+=arr[i];
+					//System.out.println(sum);
+					//System.out.println(window);
+				}
+			}
+			
+		}
+		
+		return sum;
+    }
+	public static void main(String[] args) {
+		int []arr = {1,4,2,5,3};
+		System.out.println(sumOddLengthSubarrays(arr));
+	}
+
+}
