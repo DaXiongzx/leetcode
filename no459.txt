@@ -1,0 +1,27 @@
+package ZX.leetcode.no459;
+
+class Solution {
+	public static boolean repeatedSubstringPattern(String s) {
+    	String str = "";
+    	boolean flag = false;
+    	int length = s.length();
+    	for(int i=1;i<=length/2;i++) {
+    		if(length%i==0) {  //长度一定是倍数关系
+    			String subString = s.substring(0, i);
+        		int num = length/subString.length();
+        		for(int j=0;j<num;j++) {
+        			str+=subString;
+        		}
+        		if(str.equals(s)) flag = true;
+        		else str = "";
+        	}
+    		}
+    		
+    	return flag;
+    }
+	   public static void main(String[] args) {
+			String s = "abab";
+			boolean flag = repeatedSubstringPattern(s);
+			System.out.println(flag);
+		}
+	}
