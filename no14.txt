@@ -1,0 +1,47 @@
+package ZX.leetcode.no14;
+
+public class Solution {
+	public static int findMinLength(String[] strs) {
+		int minLength = Integer.MAX_VALUE;
+		for(String str:strs) {
+			if(str.length()<minLength) minLength = str.length();
+		}
+		return minLength;
+	}
+	
+	public static String longestCommonPrefix(String[] strs) {
+		if(strs.length==0) return "";
+		if(strs.length==1) return strs[0];
+		String preStr = "";
+		String subStr = "";
+		boolean flag = true;
+		int minLength = findMinLength(strs);
+		//System.out.println("minLength: "+minLength);
+		for(int i=0;i<=minLength;i++) {
+			subStr = strs[0].substring(0, i);
+			//System.out.println("subStr: "+subStr);
+			for(String str:strs) {
+				//System.out.println("str: "+str);
+				if(str.substring(0, i).equals(subStr)==false){
+					//System.out.println("匹配失败");
+					flag = false;
+					break;
+				}
+				if(str.substring(0, i).equals(subStr)) {
+					flag = true;
+					continue;
+				}
+				
+			}
+			if(flag ==true)
+				preStr = subStr;
+		}
+		return preStr;
+    }
+	
+	public static void main(String[] args) {
+		String []strs = {"ab", "a"};
+		System.out.println(longestCommonPrefix(strs));
+	}
+
+}
