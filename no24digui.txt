@@ -1,0 +1,20 @@
+package ZX.leetcode.no24;
+
+class ListNode {
+	      int val;
+	      ListNode next;
+	      ListNode() {}
+	      ListNode(int val) { this.val = val; }
+	      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+	  }
+
+public class Solution {  //递归思路的文章  https://lyl0724.github.io/2020/01/25/1/
+	public ListNode swapPairs(ListNode head) {
+		if(head==null||head.next==null) return head;
+		ListNode next = head.next;
+		head.next = swapPairs(next.next);
+		next.next = head;
+		return next;
+    }
+
+}
