@@ -1,0 +1,28 @@
+package ZX.leetcode.no26;
+
+public class Solution {
+	
+	public static int removeDuplicates(int[] nums) {  //快慢指针方法：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/kuai-man-zhi-zhen-26-shan-chu-pai-xu-shu-xf3t/
+		//数组有序   0-slow是无重复的部分，fast向后遍历，当fast指向的与slow指向的不同时，将fast指向的放到[++slow]中！！！
+		int slow = 0;
+		int fast = 1;
+		for(;fast<nums.length;fast++) {
+			if(nums[fast]!=nums[slow]) {
+				slow++;
+				nums[slow] = nums[fast];
+			}
+		}
+		
+		return slow+1;
+		
+
+    }
+	public static void main(String[] args) {
+		int []nums = {1,1,2};
+		System.out.println(removeDuplicates(nums));
+		for(int i:nums) {
+			System.out.println(i);
+		}
+	}
+
+}
