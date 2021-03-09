@@ -1,0 +1,19 @@
+package ZX.leetcode.no27;
+
+public class Solution {
+	public int removeElement(int[] nums, int val) {
+		int slow = 0;
+		int fast = 0;
+		int len = 0;
+		for(;fast<nums.length;fast++) {
+			if(nums[fast] != val) {
+				nums[slow] = nums[fast];
+				slow++;
+				len++;
+			}
+		}
+		return len;
+
+    }
+
+}
