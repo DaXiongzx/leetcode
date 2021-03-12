@@ -1,0 +1,28 @@
+package ZX.leetcode.no331;
+
+import java.util.Stack;
+
+public class Solution {
+	public static boolean isValidSerialization(String preorder) {
+		boolean res = false;
+		String []str = preorder.split(",");
+		Stack<String> stack = new Stack<>();
+		for(int i=0;i<str.length;i++) {
+			stack.push(str[i]);
+			while(stack.size()>=3&&stack.get(stack.size()-1).equals("#")&&stack.get(stack.size()-2).equals("#")&&!(stack.get(stack.size()-3).equals("#"))) {
+				stack.pop();
+				stack.pop();
+				stack.pop();
+				stack.push("#");
+			}
+		}
+		
+		if(stack.size()==1&&stack.peek().equals("#")) res = true;
+		return res;
+    }
+	public static void main(String[] args) {
+		String preoder = "9,#,92,#,#" ; 
+		System.out.println(isValidSerialization(preoder));
+	}
+
+}
