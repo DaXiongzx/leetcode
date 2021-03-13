@@ -12,12 +12,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class Solution {
-	
-	public static List<List<Integer>> threeSum(int[] nums) {  
+	public static List<List<Integer>> threeSum(int[] nums) {  //对数组进行排序 之后利用双指针进行搜索，利用有序数组进行去重
 		if(nums==null||nums.length<3) return new ArrayList<>();
 		Arrays.sort(nums);
-		Set<List<Integer>> res = new HashSet<>();
+		List<List<Integer>> res = new ArrayList<>();
 		for(int i=0;i<nums.length;i++) {
+			if(i>0&&nums[i]==nums[i-1]) continue;
 			int target = -(nums[i]);
 			int left = i+1;
 			int right = nums.length-1;
@@ -25,8 +25,8 @@ public class Solution {
 				int sum = nums[left]+nums[right];
 				if(sum==target) {
 					res.add(Arrays.asList(nums[i],nums[left],nums[right]));
-					left++;
-					right--;
+					while(left<right&&nums[left]==nums[++left]);  //去重技巧：当后一个值与当前值相同时 直接跳过够一个值
+					while(left<right&&nums[right]==nums[--right]);
 				}else if(sum<target) {
 					left++;
 				}else {
@@ -36,9 +36,36 @@ public class Solution {
 			
 		}
 	
-		return new ArrayList<>(res);
+		return res;
 
 	}
+	
+//	public static List<List<Integer>> threeSum(int[] nums) {  //对数组进行排序 之后利用双指针进行搜索，利用set进行去重
+//		if(nums==null||nums.length<3) return new ArrayList<>();
+//		Arrays.sort(nums);
+//		Set<List<Integer>> res = new HashSet<>();
+//		for(int i=0;i<nums.length;i++) {
+//			int target = -(nums[i]);
+//			int left = i+1;
+//			int right = nums.length-1;
+//			while(left<right) {
+//				int sum = nums[left]+nums[right];
+//				if(sum==target) {
+//					res.add(Arrays.asList(nums[i],nums[left],nums[right]));
+//					left++;
+//					right--;
+//				}else if(sum<target) {
+//					left++;
+//				}else {
+//					right--;
+//				}
+//			}
+//			
+//		}
+//	
+//		return new ArrayList<>(res);
+//
+//	}
 	
 //	public static List<List<Integer>> threeSum(int[] nums) {  //暴力解法
 //		if(nums==null||nums.length<3) return new ArrayList<>();
