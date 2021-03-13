@@ -1,0 +1,69 @@
+package ZX.leetcode.no15;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class Solution {
+	
+	public static List<List<Integer>> threeSum(int[] nums) {  
+		if(nums==null||nums.length<3) return new ArrayList<>();
+		Arrays.sort(nums);
+		Set<List<Integer>> res = new HashSet<>();
+		for(int i=0;i<nums.length;i++) {
+			int target = -(nums[i]);
+			int left = i+1;
+			int right = nums.length-1;
+			while(left<right) {
+				int sum = nums[left]+nums[right];
+				if(sum==target) {
+					res.add(Arrays.asList(nums[i],nums[left],nums[right]));
+					left++;
+					right--;
+				}else if(sum<target) {
+					left++;
+				}else {
+					right--;
+				}
+			}
+			
+		}
+	
+		return new ArrayList<>(res);
+
+	}
+	
+//	public static List<List<Integer>> threeSum(int[] nums) {  //暴力解法
+//		if(nums==null||nums.length<3) return new ArrayList<>();
+//		Set<List<Integer>> res = new HashSet<>();
+//		//Set<String> set = new HashSet<>();
+//		for(int i=0;i<nums.length;i++) {
+//			for(int j=i+1;j<nums.length;j++) {
+//				for(int k=j+1;k<nums.length;k++) {
+//					if(nums[i]+nums[j]+nums[k]==0) {
+//						List<Integer> tmp = Arrays.asList(nums[i],nums[j],nums[k]);
+//						Collections.sort(tmp);
+//						res.add(tmp);	
+//					}
+//				}
+//			}
+//			
+//		}
+//		
+//		return new ArrayList<>(res);
+//
+//    }
+	
+	public static void main(String[] args) {
+		int []nums = {-13,11,11,0,-5,-14,12,-11,-11,-14,-3,0,-3,12,-1,-9,-5,-13,9,-7,-2,9,-1,4,-6,-13,-7,10,10,9,7,13,5,4,-2,7,5,-13,11,10,-12,-14,-5,-8,13,2,-2,-14,4,-8,-6,-13,9,8,6,10,2,6,5,-10,0,-11,-12,12,8,-7,-4,-9,-13,-7,8,12,-14,10,-10,14,-3,3,-15,-14,3,-14,10,-11,1,1,14,-11,14,4,-6,-1,0,-11,-12,-14,-11,0,14,-9,0,7,-12,1,-6};
+		System.out.println(threeSum(nums));
+	}
+
+}
