@@ -1,5 +1,7 @@
 package ZX.leetcode.no115;
 
+//记忆化递归是要判断s[i]==s[j]与否 相等的话则dp[i][j]=dp[i-1][j-1]+dp[i-1][j] 自上向下将问题拆解 （判断s[i]==s[j]） 之后看待子问题[i-1][j-1]
+//而dp是从基问题一步一步向上推 是判断s[i-1]==t[j-1]相等与否，如果等于了 则dp[i]dp[j]由[i-1][j-1]去推理
 public class Solution {
 	public static int helper(String s,String t,int i,int j,int [][]dp) {
 		if(j<0) return 1;
