@@ -1,0 +1,27 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        from collections import Counter
+        row_count = [[0]*9 for _ in range(9)]
+        column_count = [[0]*9 for _ in range(9)]
+        subblocks = [[[0]*9 for _ in range(3)] for _ in range(3)]
+        #print(subblocks)
+        for i in range(9):
+            for j in range(9):
+                c = board[i][j]
+                if c!='.':
+                    c = int(c)-1
+                    row_count[i][c]+=1
+                    column_count[j][c]+=1
+                    subblocks[int(i/3)][int(j/3)][c]+=1
+                    #if row_count[i][c] > 1 or column_count[j][c]>1 or subblocks[int(i/3)][int(j/3)][c]>1:
+                    if row_count[i][c] > 1 or column_count[j][c]>1 or subblocks[int(i/3)][int(j/3)][c]>1:
+                        return False
+        return True
+                
+
+                
+
+
+
+
+        # return True
