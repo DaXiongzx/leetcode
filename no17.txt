@@ -1,0 +1,25 @@
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if len(digits)==0: return []
+        nums = [i+2 for i in range(8)]
+        map = {}
+        i=0
+        for num in nums:
+            list = []
+            for j in range(97,100):
+                list.append(chr(i+j))
+            i+=3
+            map[num] = list
+        map[7] = ['p','q','r','s']
+        map[8] = ['t','u','v']
+        map[9] = ['w','x','y','z']
+        if len(digits)==1:
+            return map[int(digits)] 
+        queue = ['']
+        for digit in digits:
+            for _ in range(len(queue)):
+                tem = queue.pop(0)
+                for y in map[int(digit)]:
+                    queue.append(tem+y)
+                
+        return queue
