@@ -1,0 +1,77 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+    def __init__(self):
+        self.inf = 1001
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if not root:
+            return ''
+        res = ''
+        queue= []
+        queue.append(root)
+        while len(queue)!=0:
+            node = queue.pop(0)
+            res+=str(node.val)+'_'
+            if node.val<=1000 and node.val>=-1000:
+                if not node.left:
+                    n_ndoe = TreeNode(self.inf)
+                    node.left=n_ndoe 
+                queue.append(node.left)
+                if not node.right:
+                    n_node = TreeNode(self.inf)
+                    node.right=n_node
+                queue.append(node.right)
+        # print('res: ',res)
+        return res
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        if data=='':
+            return None
+        data = data.split('_')
+        data_list = []
+        for i in range(len(data)-1):
+            data_list.append(int(data[i]))
+        data = data_list
+        queue = []
+        root = TreeNode(data[0])
+        queue.append(root)
+        i = 1
+        while i<len(data)-1:
+            node = queue.pop(0)
+            left = data[i]
+            right = data[i+1]
+            if left!=self.inf:
+                node.left = TreeNode(left)
+                queue.append(node.left)
+            if right!=self.inf:
+                node.right = TreeNode(right)
+                queue.append(node.right)
+            i = i+2
+        return root
+
+
+        
+
+        
+        
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))
