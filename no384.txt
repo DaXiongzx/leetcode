@@ -1,0 +1,35 @@
+class Solution {
+    int[] nums;
+    int len;
+
+    public Solution(int[] nums) {
+        this.nums = nums;
+        len = nums.length;
+    }
+    
+    public int[] reset() {
+        return this.nums;
+    }
+    public void swap(int[] ans,int i,int j){
+        int temp = ans[i];
+        ans[i] = ans[j];
+        ans[j] = temp;
+    }
+    
+    public int[] shuffle() {
+        Random random = new Random();
+        int[] ans = this.nums.clone();
+        for (int i=0;i<this.len;i++){
+            swap(ans,i,i+random.nextInt(this.len-i));
+        }
+        return ans;
+
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * int[] param_1 = obj.reset();
+ * int[] param_2 = obj.shuffle();
+ */
