@@ -1,0 +1,19 @@
+class Solution:
+    def buddyStrings(self, s: str, goal: str) -> bool:
+        if len(s)!=len(goal):return False
+        if s==goal:
+            if len(s)==len(set(s)):
+                return False
+            else:
+                return True
+        index = []
+        for i in range(len(s)):
+            if s[i]!=goal[i]:
+                index.append(i)
+        if len(index)!=2:
+            return False
+        else:
+            if s[index[0]]==goal[index[1]] and s[index[1]]==goal[index[0]]:
+                return True
+        return False
+        
