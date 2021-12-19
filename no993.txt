@@ -1,0 +1,45 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class utils:
+    def __init__(self,node,fnode,depth):
+        self.node = node
+        self.fnode = fnode
+        self.depth = depth
+
+    def __str__(self,):
+        return "depth:{}".format(self.depth)
+class Solution:
+    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        if not root:return False
+        
+        queue = []
+        rootutil = utils(root,None,0)
+        queue.append(rootutil)
+        res = []
+        while queue:
+            cur_node_util = queue.pop(0)
+            if cur_node_util.node.left:
+                left_util = utils(cur_node_util.node.left,cur_node_util.node,cur_node_util.depth+1)
+                queue.append(left_util)
+                res.append(left_util)
+            if cur_node_util.node.right:
+                right_util = utils(cur_node_util.node.right,cur_node_util.node,cur_node_util.depth+1)
+                queue.append(right_util)
+                res.append(right_util)
+        x_node_util = rootutil
+        y_node_util = rootutil
+        for util in res:
+            if util.node.val==x:
+                x_node_util = util
+            if util.node.val==y:
+                y_node_util = util
+        if (x_node_util.depth==y_node_util.depth):
+            if x_node_util.fnode!=y_node_util.fnode:
+                return True
+        return False
+
+        
