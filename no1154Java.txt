@@ -1,0 +1,25 @@
+class Solution {
+    static int[] nums = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    static int[] f = new int[13];
+    static {
+        for(int i=1;i<=12;i++){
+            f[i] = f[i-1]+nums[i-1];  //到一月底总共有多少天 到二月底一共有多少天 到三月底一共有多少天 f[1]=31 f[2]=59 f[3]=59+31
+        }
+    }
+
+    
+    public boolean leapYear(int year){
+        if ((year%4==0&&year%100!=0)||year%400==0) return true;
+        return false;
+    }
+    
+    public int dayOfYear(String date) {
+        String[] ss = date.split("-");
+        int year = Integer.parseInt(ss[0]);
+        int month = Integer.parseInt(ss[1]);
+        int day = Integer.parseInt(ss[2]);
+        int ans = month>2&&leapYear(year)?f[month-1]+1 :f[month-1];
+        return ans+day;
+
+    }
+}

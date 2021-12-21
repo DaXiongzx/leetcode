@@ -1,0 +1,50 @@
+class Solution {
+    public int findsplit(int[] nums){
+        int i = 0;
+        for(;i<nums.length;){
+            if (nums[i]>=nums[0]) i++;
+            else break;
+        }
+        if (i==nums.length) return nums.length-1;
+        return i;//返回的下标
+    }
+    public int findtarget(int[] nums,int target){
+        int left = 0;
+        int right = nums.length-1;
+        while(left<right){
+            int mid = (left+right)/2;
+            if(nums[mid]>target) right = mid-1;
+            else if(nums[mid]<target) left = mid+1;
+            else return mid;
+        }
+        int mid = (left+right)/2;
+        if(target==nums[mid]) {
+            return mid;
+        }
+        return -1;
+    }
+    public int search(int[] nums, int target) {
+        if (nums.length==1){
+            if (nums[0]==target) return 0;
+            return -1;
+        }
+        int index = findsplit(nums);
+        System.out.println(index);
+        int []arr1 = new int[index];
+        int []arr2 = new int[nums.length-index];
+        for(int i=0;i<index;i++){
+            arr1[i] = nums[i];
+        }
+        for(int i=0;i<nums.length-index;i++){
+            arr2[i] = nums[i+index];
+        }
+        for(int item:arr1) System.out.println(item);
+        for(int item:arr2) System.out.println(item);
+        if(findtarget(arr2,target)!=-1){
+             return index+findtarget(arr2,target);
+        }
+        return findtarget(arr1,target);
+        //return -1;
+
+    }
+}
