@@ -1,0 +1,17 @@
+class Solution {
+    public String[] findOcurrences(String text, String first, String second) {
+        List<String>res = new ArrayList<>();
+        String []ss = text.split(" ");
+        int i=0;
+        while(i+2<ss.length){
+            if(ss[i].equals(first)&&ss[i+1].equals(second)) res.add(ss[i+2]);
+            i++;
+        }
+        int size = res.size();
+        String[] array = (String[])res.toArray(new String[size]);  
+        return array;
+
+
+
+    }
+}
