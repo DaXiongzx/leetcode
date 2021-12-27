@@ -1,0 +1,21 @@
+class Solution {
+    public boolean judge(int x,int y,int []ages){
+        if (ages[y]<=0.5*ages[x]+7) return false;
+        if(ages[y]>ages[x]) return false;
+        if(ages[y]>100&&ages[x]<100) return false;
+        return true;
+    }
+    public int numFriendRequests(int[] ages) {
+        Arrays.sort(ages);
+        int res = 0;
+        for(int k=0,i=0,j=0;k<ages.length;k++){
+            while(i<k &&!judge(i,k,ages)) i++;   //寻找左边界
+            if(j<k) j=k;
+            while(j<ages.length&&judge(j,k,ages)) j++;
+            if(j>i) res = res+j-i-1;
+
+        }
+        return res;
+
+    }
+}
