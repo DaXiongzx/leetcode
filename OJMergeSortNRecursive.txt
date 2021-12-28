@@ -1,0 +1,77 @@
+package zx.com.first;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class MergeSortNRecursive {
+    public static void merge(int []nums,int left,int mid,int right){ //left-mid:有序  mid+1-right:有序
+        int[] temp = new int[right-left+1];;
+        int index = 0;
+        int i=0,j=mid+1;
+        while(i<=mid&&j<=right){
+            if(nums[i]<nums[j]){
+                temp[index] = nums[i];
+                i++;
+                index++;
+            }else{
+                temp[index] = nums[j];
+                j++;
+                index++;
+            }
+        }
+        while(i<=mid){
+            temp[index] = nums[i];
+            i++;
+            index++;
+        }
+        while(j<=right){
+            temp[index] = nums[j];
+            j++;
+            index++;
+        }
+        for(int k=0;k<temp.length;k++){
+            nums[left+k] = temp[k];
+        }
+    }
+    public static void mergeSort(int []nums){
+        if(nums==null||nums.length==1) return;
+        int span = 1;//跨度为1
+        while(span<nums.length){
+            //for循环里每2个span进行截取出left,mid,right,然后merge排序
+            for(int i=0;i<nums.length;i+=2*span){
+                int left = i;
+                int mid = left+span-1;
+                /*
+                处理边界，当最后一个mid定位超出了长度，表示最后几个数凑不到一个span，
+                本次span长度=上次while里span2倍，故也凑不齐上次while循环里的2*span，
+                凑不齐上次循环2个span的几个数在上次while里一定归并排序好了，
+                所以可以直接break
+                */
+                if(mid>=nums.length-1) break;
+                int right = left+2*span-1;
+                if(right>=nums.length-1) right = nums.length-1;
+                merge(nums,left,mid,right);
+            }
+            span = span*2;
+
+        }
+
+
+
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNext()){
+            int N = scanner.nextInt();
+            int []nums= new int[N];
+            for (int i=0;i<N;i++){
+                nums[i] = scanner.nextInt();
+            }
+            mergeSort(nums);
+            for(int i=0;i<N-1;i++){
+                System.out.print(nums[i]+" ");
+            }
+            System.out.println(nums[N-1]);
+        }
+    }
+}
