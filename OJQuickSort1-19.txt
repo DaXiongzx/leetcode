@@ -1,61 +1,53 @@
 package zx.com.first;
 import java.util.Scanner;
-public class MergeSort {
-    public static int [] merge(int []leftArray,int []rightArray){
-        int leftLength = leftArray.length;
-        int rightLength = rightArray.length;
-        int []res = new int[leftLength+rightLength];
-        int index = 0;
-        int i=0,j=0;
-        while(i<leftLength&&j<rightLength){
-            if(leftArray[i]<rightArray[j]){
-                res[index] = leftArray[i];
-                i++;
-                index++;
-            }else{
-                res[index] = rightArray[j];
-                j++;
-                index++;
-            }
+import java.util.Stack;
+
+public class QuickSort {
+    public static int partition(int left,int right,int []nums){  //将某个数放在其正确位置，并且返回该位置
+        int base = nums[left];
+        while(left<right){
+            while(left<right&&nums[right]>=base) right--;
+            nums[left] = nums[right];
+            while(left<right&&base>=nums[left]) left++;
+            nums[right] = nums[left];
         }
-        while(i<leftLength){
-            res[index] = leftArray[i];
-            i++;
-            index++;
-        }
-        while(j<rightLength){
-            res[index] = rightArray[j];
-            j++;
-            index++;
-        }
-        return res;
+        //left==right
+        nums[left] = base;
+        return left;
+
     }
-    public static int[] mergeSort(int left,int right,int []nums){
-        if (left==right)
-        {
-            int []arr = new int[1];
-            arr[0] = nums[left];
-            return arr;
+    public static void quickSort(int []nums){
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        stack.push(nums.length-1);
+        while(!stack.isEmpty()){
+            int right = stack.pop();
+            int left = stack.pop();
+            if(left>=right) continue;
+            int index = partition(left,right,nums);
+            stack.push(left);
+            stack.push(index-1);
+            stack.push(index+1);
+            stack.push(right);
         }
-        int mid = (left+right)/2;
-        int []leftArray = mergeSort(left,mid,nums);
-        int []rightArray = mergeSort(mid+1,right,nums);
-        int []res = merge(leftArray,rightArray);
-        return res;
+
+
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNext()){
             int N = scanner.nextInt();
-            int []nums= new int[N];
-            for (int i=0;i<N;i++){
+            int []nums = new int[N];
+            for(int i=0;i<N;i++){
                 nums[i] = scanner.nextInt();
             }
-            int []res = mergeSort(0,N-1,nums);
+            quickSort(nums);
             for(int i=0;i<N-1;i++){
-                System.out.print(res[i]+" ");
+                System.out.print(nums[i]+" ");
             }
-            System.out.println(res[N-1]);
+            System.out.println(nums[N-1]);
+
         }
+
     }
 }
