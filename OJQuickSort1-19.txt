@@ -1,0 +1,61 @@
+package zx.com.first;
+import java.util.Scanner;
+public class MergeSort {
+    public static int [] merge(int []leftArray,int []rightArray){
+        int leftLength = leftArray.length;
+        int rightLength = rightArray.length;
+        int []res = new int[leftLength+rightLength];
+        int index = 0;
+        int i=0,j=0;
+        while(i<leftLength&&j<rightLength){
+            if(leftArray[i]<rightArray[j]){
+                res[index] = leftArray[i];
+                i++;
+                index++;
+            }else{
+                res[index] = rightArray[j];
+                j++;
+                index++;
+            }
+        }
+        while(i<leftLength){
+            res[index] = leftArray[i];
+            i++;
+            index++;
+        }
+        while(j<rightLength){
+            res[index] = rightArray[j];
+            j++;
+            index++;
+        }
+        return res;
+    }
+    public static int[] mergeSort(int left,int right,int []nums){
+        if (left==right)
+        {
+            int []arr = new int[1];
+            arr[0] = nums[left];
+            return arr;
+        }
+        int mid = (left+right)/2;
+        int []leftArray = mergeSort(left,mid,nums);
+        int []rightArray = mergeSort(mid+1,right,nums);
+        int []res = merge(leftArray,rightArray);
+        return res;
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNext()){
+            int N = scanner.nextInt();
+            int []nums= new int[N];
+            for (int i=0;i<N;i++){
+                nums[i] = scanner.nextInt();
+            }
+            int []res = mergeSort(0,N-1,nums);
+            for(int i=0;i<N-1;i++){
+                System.out.print(res[i]+" ");
+            }
+            System.out.println(res[N-1]);
+        }
+    }
+}
