@@ -1,0 +1,48 @@
+package zx.com.first;
+
+import java.util.Scanner;
+
+public class AnimalPaint {
+    //利用二分法去确定桶的容量
+    public static int partition(int []boards,int n,int k){ //k means number of people
+        int right = 0;
+        for(int i=0;i<boards.length;i++) right+=boards[i];//桶的最大容量
+        int left = boards[0];
+        for(int i=1;i<boards.length;i++)
+            if(boards[i]>left) left = boards[i];//桶的最小容量
+        while(left<right){
+            int mid = (left+right)/2;
+            int num = getPainters(boards,mid);
+            if(num>k) left = mid+1;
+            else right =mid;
+        }
+        return left;
+    }
+    public static int getPainters(int []boards,int cap){ //获得桶数量
+        int num = 0;
+        int total = 0;
+        for(int i=0;i<boards.length;i++){
+            total+=boards[i];
+            if(total>cap){
+                num++;
+                total = 0;
+            }
+        }
+        return num;
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNext()){
+            int T = scanner.nextInt();
+            for(int i=0;i<T;i++){
+                int k = scanner.nextInt();
+                int n = scanner.nextInt();
+                int []boards = new int[n];
+                for(int j=0;j<n;j++){
+                    boards[j]=scanner.nextInt();
+                }
+                System.out.println(partition(boards,n,k));
+            }
+        }
+    }
+}
