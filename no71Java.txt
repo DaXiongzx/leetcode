@@ -1,0 +1,32 @@
+package zx.com.leetcode;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
+
+public class Solution71 {
+    public static  String simplifyPath(String path) {
+        Deque<String> deque = new ArrayDeque<>();
+        int n = path.length();
+        for(int i=1;i<n;){
+            if(path.charAt(i)=='/') {
+                i++;
+                continue;
+            }
+            int j = i+1;
+            while(j<n&&path.charAt(j)!='/') j++;
+            String item = path.substring(i,j);
+            if(item.equals("..")){
+                if(!deque.isEmpty()) deque.pollLast();
+            }else if(!item.equals(".")) deque.addLast(item);
+            i = j;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(String item:deque) sb.append("/"+item);
+        return sb.length()==0?"/":sb.toString();
+
+    }
+    public static void main(String[] args) {
+
+    }
+}
