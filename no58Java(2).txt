@@ -1,0 +1,15 @@
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int n= s.length();
+        int j=n-1;
+        int i=0;
+        for(;j>=0;j--){
+            if(s.charAt(j)==' ') continue; //此时j指向的不是空格
+            i = j-1;
+            while(i>=0&&s.charAt(i)!=' ') i--;
+            break;
+        }
+        return j-i;
+
+    }
+}Q
