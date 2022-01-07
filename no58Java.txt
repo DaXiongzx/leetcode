@@ -1,0 +1,17 @@
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int n= s.length();
+        Deque<String> list = new ArrayDeque<>();
+        char[]cs = s.toCharArray();
+        for (int i=0;i<n;i++){
+            if(cs[i]==' ') continue; //使得i指向的不是空格
+            int j=i+1;
+            while(j<n&&cs[j]!=' ')j++;
+            String subString = s.substring(i,j);
+            list.addLast(subString);
+            i = j;
+        }
+        return list.pollLast().length();
+
+    }
+}
