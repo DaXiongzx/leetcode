@@ -1,0 +1,30 @@
+class Solution {
+    public void clearMatrix(int i,int j,int [][]matrix){ //使得第i行和第j列所有元素置为0
+        int rowNum = matrix.length;
+        int colNum = matrix[0].length;
+        //置行为0
+        for(int y=0;y<colNum;y++) matrix[i][y]=0;
+        //置列为0
+        for(int x=0;x<rowNum;x++) matrix[x][j]=0;
+    }
+    public void setZeroes(int[][] matrix) {
+        int rowNum = matrix.length;
+        int colNum = matrix[0].length;
+        List<Integer> xList = new ArrayList<>();
+        List<Integer> yList = new ArrayList<>();
+        for(int i=0;i<rowNum;i++){
+            for(int j=0;j<colNum;j++){
+                if(matrix[i][j]==0){
+                    xList.add(i);
+                    yList.add(j);//记住所有为0的下标
+                }
+            }
+        }
+        int size = xList.size();
+        for(int k=0;k<size;k++){
+            int i= xList.get(k);
+            int j= yList.get(k);
+            clearMatrix(i,j,matrix);
+        }
+    }
+}
