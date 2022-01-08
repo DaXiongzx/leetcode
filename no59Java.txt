@@ -1,0 +1,26 @@
+package zx.com.leetcode;
+
+public class Solution59 {
+    public static int[][] generateMatrix(int n) {
+        int [][]nums = new int[n][n];
+        int row = 0,col = 0;
+        int num = 1;
+        int maxNum = n*n;
+        int [][]directions = {{0,1},{1,0},{0,-1},{-1,0}}; //右 下 左 上
+        int directionIndex = 0;
+        while(num<maxNum){
+            nums[row][col] = num;
+            num++;
+            int nextRow = row+directions[directionIndex][0];
+            int nextCol = col+directions[directionIndex][1];
+            if(nextRow>=n||nextCol>=n||nextCol<0||nextRow<0||nums[nextRow][nextCol]!=0)
+                directionIndex = (directionIndex+1)%4;
+            row = row+directions[directionIndex][0];
+            col = col+directions[directionIndex][1];
+        }
+        return nums;
+    }
+    public static void main(String[] args) {
+
+    }
+}
