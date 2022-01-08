@@ -1,0 +1,65 @@
+public void setZeroes(int[][] matrix) {
+        int rowNum = matrix.length;
+        int colNum = matrix[0].length;
+        boolean firstRowFlag = false;
+        boolean firstColFlag = false;//第一行和第一列的标志位，判断第一行和第一列中是否原来就存在0,如果第一行和第一列原来就有0的话，那最后直接第一行和第一列全部置0即可。
+        //一个直观的想法：第一行和第一列可以扫描整个数组，因此可以通过第一行和第一列来对数组进行置0
+        for(int x=0;x<colNum;x++){
+            if(matrix[0][x]==0) {
+                firstRowFlag=true;
+                break;
+            }
+        }
+        for(int x=0;x<rowNum;x++){
+            if(matrix[x][0]==0){
+                firstColFlag=true;
+                break;
+            }
+        }
+        //之后通过对除了第一行和第一列的行列来判断是否有0，如果有0的话，将对应的第一行的某列或者第一列的某行上的元素置0即可。
+        for(int i=1;i<rowNum;i++){
+            for(int j=1;j<colNum;j++){
+                if(matrix[i][j]==0){
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;//将第一行中的某个元素和第一列中中的某个元素置为零。
+                }
+            }
+        }
+        //置零通过第一行和第一列去判断
+        //这里的置零不包括第一行和第一列
+        for(int col=1;col<colNum;col++){
+            if(matrix[0][col]==0){
+                //第一行中某个元素为0，那么将这个元素所在列的所有元素置为零
+                for(int row=0;row<rowNum;row++){
+                    matrix[row][col]=0;
+                }
+            }
+        }
+        for(int row=1;row<rowNum;row++){
+            if(matrix[row][0]==0){ //第一列中有元素为0，那么将该元素所在列的所有元素置为0
+                for(int col=0;col<colNum;col++){
+                    matrix[row][col]=0;
+                }
+
+            }
+        }
+
+        /*
+        * 置0的第二种写法，扫描剩余的行列。类似于走马观花的方式，看到一个元素，看看该元素的头顶与左侧是否存在0（第一行第一列），若存在，该元素置为0即可。
+        * for (int i = 1; i < row; i++) {
+            for (int j = 1; j < col; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        * */
+
+        //根据flag判断初始数组中第一行和第一列是否存在0，若存在的话，直接置0
+        if(firstRowFlag){
+            for(int col=0;col<colNum;col++) matrix[0][col]=0;
+        }
+        if(firstColFlag){
+            for(int row=0;row<rowNum;row++) matrix[row][0]=0;
+        }
+    }
