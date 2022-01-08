@@ -1,0 +1,14 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int len = digits.length;
+        for(int i=len-1;i>=0;i--){
+            digits[i]++;
+            digits[i] = digits[i]%10;  //判断当前位加一后是否会进位
+            if(digits[i]!=0) return digits; //当前位不等于零就直接return
+        }
+        digits = new int[len+1];
+        digits[0]=1; //从三位数变成了四位数
+        return digits;
+
+    }
+}
