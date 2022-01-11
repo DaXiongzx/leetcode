@@ -1,0 +1,24 @@
+package zx.com.leetcode;
+
+public class Solution165 {
+    public int compareVersion(String version1, String version2) {
+        String []version1Array = version1.split("\\.");
+        String []version2Array = version2.split("\\.");//获得分词后的数组
+        int len1 = version1Array.length;
+        int len2 = version2Array.length;
+        int i=0,j=0;
+        while(i<len1||j<len2){
+            int a=0,b=0;
+            if(i<len1) a=Integer.parseInt(version1Array[i++]);//可以去除前导零
+            if(j<len2) b=Integer.parseInt(version2Array[j++]);
+            if(a!=b) return a>b? 1:-1;
+        }
+        return 0;
+
+
+    }
+
+    public static void main(String[] args) {
+
+    }
+}
