@@ -1,0 +1,21 @@
+class Solution {
+    public int dominantIndex(int[] nums) {
+        int index = 0;
+        int val = nums[0];
+        int len = nums.length;
+        for(int i=0;i<len;i++){
+            if(nums[i]>val){
+                val = nums[i];
+                index = i;
+            }
+        }//find max
+        for(int item:nums){
+            if(val>=2*item||item==val) continue;
+            return -1;
+        }
+
+
+        return index;
+
+    }
+}
