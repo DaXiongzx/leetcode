@@ -1,0 +1,23 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+        Set<Long> set = new HashSet<>();
+        int []nums = new int[]{2,3,5};
+        Queue<Long> pq = new PriorityQueue<>();
+        set.add(1L);
+        pq.add(1L);
+        for(int i=1;i<=n;i++){
+            long x = pq.poll();//取出一个最小的
+            if(i==n) return (int) x;
+            for(int num:nums){
+                long item = x*num;
+                if (!set.contains(item)){
+                    set.add(item);
+                    pq.add(item);
+                }
+            }
+
+        }
+        return -1;
+
+    }
+}
