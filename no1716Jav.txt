@@ -1,0 +1,27 @@
+package zx.com.leetcode;
+
+public class Solution1716 {
+    public int totalMoney(int n) {
+        int nums[][] = new int[1000][7];
+        for(int i=1;i<=7;i++){
+            nums[0][i-1] = i;
+        }
+        for(int i=1;i<1000;i++){
+            for(int j=0;j<7;j++){
+                nums[i][j] = nums[i-1][j]+1;
+            }
+        }
+        int res = 0;
+        int count=0;
+        for(int i=0;i<1000;i++){
+            for(int j=0;j<7;j++){
+                if(count==n) return res;
+                res=res+nums[i][j];
+                count++;
+            }
+        }
+        return res;
+
+    }
+
+}
