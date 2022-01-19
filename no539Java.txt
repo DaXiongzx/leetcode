@@ -1,0 +1,67 @@
+package zx.com.leetcode;
+
+import java.util.List;
+
+public class Solution539 {
+    public int getDelta(int hour1,int minute1,int hour2,int minute2){
+        int res3 = 0;
+        int res4 = 0;
+        int res1 = 0;
+        int res2 = 0;
+        if(hour2==24){
+            res1 =(hour2-hour1)*60+(minute2-minute1);
+            hour2 = 0;
+            res2 =(hour1-hour2)*60+(minute1-minute2);
+            res3 = Math.min(res1,res2);
+        }else{
+                res3 = Math.abs((hour2-hour1)*60+(minute2-minute1));
+            }
+        res1 = 0;
+        res2 = 0;
+        if(hour1==24){
+            res1 =(hour1-hour2)*60+(minute1-minute2);
+            hour1 = 0;
+            res2 =(hour2-hour1)*60+(minute2-minute1);
+            res4 = Math.min(res1,res2);
+        }else{
+            res4 = Math.abs((hour1-hour2)*60+(minute1-minute2));
+        }
+
+        return Math.min(res3,res4);
+
+    }
+    public int doMin(int [][]time){
+        int min = 0;
+        for(int i=0;i<time.length;i++){
+            int hour1 = time[i][0];
+            int minute1 = time[i][1];
+            for(int j=i+1;j<time.length;j++){
+                int hour2 = time[j][0];
+                int minute2 = time[j][1];
+                int res = getDelta(hour1,minute1,hour2,minute2);
+                if(res<min) min = res;
+            }
+        }
+        return min;
+    }
+    public int findMinDifference(List<String> timePoints) {
+        int len = timePoints.size();
+        int [][]time = new int[len][2];
+        for(int i=0;i<len;i++){
+            String []s = timePoints.get(i).split(":");
+            int hour = Integer.valueOf(s[0]);
+            if(hour==0) hour = 24;
+            int minute = Integer.valueOf(s[1]);
+            time[i][0] = hour;
+            time[i][1] = minute;
+        }
+        for(int i =0;i<len;i++){
+            for(int j=0;j<2;j++){
+                System.out.print(time[i][j]+" ");
+            }
+            System.out.println();
+        }
+        return doMin(time);
+    }
+
+}
