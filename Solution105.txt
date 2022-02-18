@@ -1,0 +1,35 @@
+package zx.com.leetcode;
+
+
+
+public class Solution105 {
+
+    public TreeNode treeBuild(int[] preorder,int[] inorder){
+        if (preorder.length==0) return null;
+        int base = preorder[0];
+        TreeNode root = new TreeNode(preorder[0]);
+        int i=0;
+        while(i<inorder.length){
+            if(base==inorder[i]) break;
+            i++;//对于中序遍历，i左边的是左子树，i右边的是右子树
+        }
+        int[] newLeftPreorder = new int[i];
+        int[] newLeftInorder = new int[i];
+        for(int j=0;j<i;j++) newLeftInorder[j] = inorder[j] ;//新的左子树中序遍历序列
+        for(int j=0;j<i;j++) newLeftPreorder[j] = preorder[j+1];
+
+        int[] newRightPreorder = new int[preorder.length-i-1];
+        int[] newRightInorder = new int[preorder.length-i-1];
+        for(int j=0;j<preorder.length-i-1;j++) newRightInorder[j]=inorder[i+j+1];
+        for(int j=0;j<preorder.length-i-1;j++) newRightPreorder[j]=preorder[i+j+1];
+
+        root.left = treeBuild(newLeftPreorder,newLeftInorder);
+        root.right = treeBuild(newRightPreorder,newRightInorder);
+        return root;
+
+    }
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        TreeNode root = treeBuild(preorder,inorder);
+        return root;
+    }
+}

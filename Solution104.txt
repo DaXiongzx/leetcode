@@ -1,0 +1,12 @@
+package zx.com.leetcode;
+
+public class Solution104 {
+    public int traversal(TreeNode node){
+        if(node==null) return 0;
+        return 1+Math.max(traversal(node.left),traversal(node.right));
+    }
+    public int maxDepth(TreeNode root) {
+        return traversal(root);
+
+    }
+}
