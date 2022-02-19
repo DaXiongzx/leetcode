@@ -1,0 +1,48 @@
+package zx.com.leetcode;
+
+import sun.reflect.generics.tree.Tree;
+
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Solution114 {
+//    public void traversal(List<Integer>list,TreeNode node){
+//        if(node==null) return;
+//        else  list.add(node.val);
+//        traversal(list,node.left);
+//        traversal(list,node.right);
+//
+//
+//    }
+//    public void flatten(TreeNode root) {
+//        if(root==null) return;
+//        if(root.left==null&&root.right==null) return;
+//        List<Integer> list = new ArrayList<>();
+//        traversal(list,root);
+//        TreeNode node = new TreeNode(list.get(1));
+//        root.right = node;
+//        root.left = null;
+//        for(int i=2;i<list.size();i++){
+//            TreeNode newNode = new TreeNode(list.get(i));
+//            node.right = newNode;
+//            node.left = null;
+//            node = newNode;
+//        }
+//    }
+    public void flatten(TreeNode root){ //找前序节点
+        TreeNode cur = root;
+        while(cur!=null){
+            if(cur.left!=null) {
+                TreeNode next = cur.left;
+                TreeNode pre = next;
+                while (pre.right != null) pre = pre.right;
+                pre.right = cur.right;
+                cur.right = next;
+                cur.left = null;
+            }
+            cur = cur.right;
+
+        }
+    }
+}
